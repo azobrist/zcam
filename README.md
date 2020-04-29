@@ -10,6 +10,7 @@ Objects:
 * certain animals
 * identify people
 * ...
+
 Actions:
 * Someone lying down (or someone getting up i.e. bedtime kiddo zombies)
 * Determining activity level w/ threshold
@@ -32,8 +33,8 @@ Other choices that i've seen or used in past:
 Python is obvious choice for it's expansive libraries and communities. 
 
 ### Libraries
-TensorFlow 2.0
-PyTorch
+* TensorFlow 2.0
+* PyTorch
 
 ## TODO's
 * Build camera module with features
