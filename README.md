@@ -17,9 +17,8 @@ Actions:
 * Determine living vs animated objects
 * ...
 
-Specificity is not main goal 
 Really, no clever single idea but just a desire to build something that can scale.
-Main focus for now is to build a hardware and software foundation to be used in many different ways
+Main focus for now is to build a hardware and software foundation, utilize and understand libraries and algorithms they use.
 
 ## Hardware
 Pi is obvious choice for price and utility. It's a good chance that as this project grows in complexity that a raspberry pi and it's heavy community can accomplish all necessary tasks. Once hardware design becomse more specific (i.e. battery power, speed optimization), will investigate other hardwares and their capabilities.
