@@ -41,4 +41,7 @@ Python is obvious choice for it's expansive libraries and communities.
   * feature1
 * Pi base image with features
   * feature1
- 
+* Annotation tool
+* Training workflow
+* Testing milestones
+* ...
