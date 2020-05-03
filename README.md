@@ -1,5 +1,5 @@
-# zdetect
-Detect something
+# zcam
+Camera software, detect something
 
 ## Purpose
 Random project to start working on to better understand open source projects and learn more about ML/AI universe. Also like it to be easy to deploy and helps to improve/optimize something in our lives. Specificity is not main goal to start with, more just learning and building an awesome foundation to build on top of. This foundation may then give way to a specific idea, we'll see. Pace of this project is set to "when I have time" mode. I also don't want to blog, so this readme will have plenty of edits and placeholders to help ease brain involvment for a project I don't have time for.
