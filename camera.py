@@ -63,15 +63,14 @@ if __name__ == "__main__":
 
     if args.use_picamera:
         import picamera
+        import time
         cam = picamera.PiCamera()
-        cam.resolution = resolutions[args.resolution]
-        bkpf = ROOT+'/../backup_{0}'.format(time.strftime("%Y%m%d-%H%M%S"))
-        backup = open(bkpf+'.h264', 'wb')
-        cam.start_recording(backup)
-        sio = io.StringIO()
-        #camera.capture(sio, "jpeg", use_video_port=True)
+        #cam.resolution = resolutions[args.resolution]
+        out = open('picam.h264', 'wb')
+        cam.start_recording(out)
+        time.sleep(10)
         cam.stop_recording()
-        backup.close()
+        out.close()
         exit()
 
     import cv2
