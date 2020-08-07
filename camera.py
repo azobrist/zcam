@@ -47,6 +47,8 @@ def cmdline_args():
     
     p.add_argument("--use-integrated","-i", action="store_true", default=False,
                     help= "Use laptop camera")
+    p.add_argument("--use-picamera","-p", action="store_true", default=False,
+                    help= "Use laptop camera")
     p.add_argument("--snap-shot","-t", action="store_true", default=False,
                     help="Take a snap shot and save it to file")
     p.add_argument("--resolution","-r", type=str, default="low", 
@@ -57,9 +59,22 @@ def cmdline_args():
     return(p.parse_args())
 
 if __name__ == "__main__":
-    import cv2
-
     args = cmdline_args()
+
+    if args.use_picamera:
+        import picamera
+        cam = picamera.PiCamera()
+        cam.resolution = resolutions[args.resolution]
+        bkpf = ROOT+'/../backup_{0}'.format(time.strftime("%Y%m%d-%H%M%S"))
+        backup = open(bkpf+'.h264', 'wb')
+        cam.start_recording(backup)
+        sio = io.StringIO()
+        #camera.capture(sio, "jpeg", use_video_port=True)
+        cam.stop_recording()
+        backup.close()
+        exit()
+
+    import cv2
 
     res = resolutions[args.resolution]
     if args.use_integrated == False:
