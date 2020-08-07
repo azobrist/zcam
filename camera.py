@@ -1,4 +1,5 @@
 import numpy as np
+import argparse
 
 max_picam_resolution = (3240,2464)
 resolutions = { "max": max_picam_resolution, 
