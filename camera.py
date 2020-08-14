@@ -54,6 +54,8 @@ def cmdline_args():
                     help="Take a snap shot and save it to file")
     p.add_argument("--resolution","-r", type=str, default="low", 
                     help="Resolution can be max, high, medium, or low.")
+    p.add_argument("--length", "-l", type=int, default=10, 
+                    help="Record video length in seconds")
     p.add_argument("--show","-s", action="store_true", default=False,
                 help="Show video or image taken in window")
 
@@ -69,7 +71,7 @@ if __name__ == "__main__":
         #cam.resolution = resolutions[args.resolution]
         out = open('picam.h264', 'wb')
         cam.start_recording(out)
-        time.sleep(10)
+        time.sleep(args.length)
         cam.stop_recording()
         out.close()
         exit()
