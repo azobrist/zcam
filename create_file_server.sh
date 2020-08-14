@@ -8,14 +8,16 @@ fi
 
 set -e
 
-mkdir /var/www/zcam
+site=zcam
+
+mkdir /var/www/$site
 
 chown -R $USER /var/www
 
-ln -s /var/www/zcam/ ./fileserver
+ln -s /var/www/$site/ ./fileserver
 
-echo "Options +Indexes" > /var/www/zcam/.htaccess
-echo "Alias /site \"/var/www/site/\"" > /etc/apache2/sites-available/zcam.conf
+echo "Options +Indexes" > /var/www/$site/.htaccess
+echo "Alias /$site \"/var/www/$site/\"" > /etc/apache2/sites-available/$site.conf
 
-a2ensite zcam.conf
+a2ensite $site.conf
 service apache2 restart
