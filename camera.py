@@ -1,11 +1,24 @@
 import numpy as np
 import argparse
+from stream import *
 
 max_picam_resolution = (3240,2464)
 resolutions = { "max": max_picam_resolution, 
-                "high": np.multiply(max_picam_resolution,0.75), 
-                "medium": np.multiply(max_picam_resolution,0.50), 
-                "low": np.multiply(max_picam_resolution,0.25)}
+                "high": np.multiply(max_picam_resolution,0.75).astype(int), 
+                "medium": np.multiply(max_picam_resolution,0.50).astype(int), 
+                "low": np.multiply(max_picam_resolution,0.25).astype(int)}
+
+PAGE="""\
+<html>
+<head>
+<title>Streaming Zcam</title>
+</head>
+<body>
+<center><h1>Streaming Zcam</h1></center>
+<center><img src="stream.mjpg" width="640" height="480"></center>
+</body>
+</html>
+"""
 
 def calc_resolution_factor(resolutionY):
     return resolutionY*3.04/2.76
@@ -52,6 +65,8 @@ def cmdline_args():
                     help= "Use laptop camera")
     p.add_argument("--snap-shot","-t", action="store_true", default=False,
                     help="Take a snap shot and save it to file")
+    p.add_argument("--stream","-m", action="store_true", default=False,
+                    help="Stream to local network address ip:8000")
     p.add_argument("--resolution","-r", type=str, default="low", 
                     help="Resolution can be max, high, medium, or low.")
     p.add_argument("--length", "-l", type=int, default=10, 
@@ -63,22 +78,31 @@ def cmdline_args():
 
 if __name__ == "__main__":
     args = cmdline_args()
-
+    
+    res = resolutions[args.resolution]
     if args.use_picamera:
         import picamera
         import time
-        cam = picamera.PiCamera()
-        #cam.resolution = resolutions[args.resolution]
-        out = open('picam.h264', 'wb')
-        cam.start_recording(out)
-        time.sleep(args.length)
-        cam.stop_recording()
-        out.close()
+        cam = picamera.PiCamera(resolution=res, framerate=24)
+        if args.stream:
+            out = StreamingOutput()
+            cam.start_recording(out, format='mjpeg')
+            try:
+                address = ('', 8000)
+                server = StreamingServer(address, StreamingHandler)
+                server.serve_forever()
+            finally:
+                camera.stop_recording()
+        else:
+            out = open('zcam.h264', 'wb')
+            cam.start_recording(out, format='h264')
+            time.sleep(args.length)
+            cam.stop_recording()
+            out.close()
         exit()
 
     import cv2
 
-    res = resolutions[args.resolution]
     if args.use_integrated == False:
         cam = cv2.VideoCapture(gstreamer_pipeline(flip_method=2,display_width=res[0],display_height=res[1]), cv2.CAP_GSTREAMER)
     else:

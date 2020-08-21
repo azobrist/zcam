@@ -12,10 +12,10 @@ from http import server
 PAGE="""\
 <html>
 <head>
-<title>Raspberry Pi - Surveillance Camera</title>
+<title>Streaming Zcam</title>
 </head>
 <body>
-<center><h1>Raspberry Pi - Surveillance Camera</h1></center>
+<center><h1>Streaming Zcam</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 </html>
